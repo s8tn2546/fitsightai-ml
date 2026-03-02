@@ -9,6 +9,10 @@ app = FastAPI(title="ML Service")
 class PredictIn(BaseModel):
     symbol: str
 
+@app.get("/")
+def root():
+    return {"ok": True, "service": "ml"}
+
 @app.get("/health")
 def health():
     return {"ok": True, "service": "ml", "time": pd.Timestamp.utcnow().isoformat()}
