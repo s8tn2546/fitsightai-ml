@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from indicators import compute_indicators
 from model import make_mock_ohlcv, train_or_dummy, heuristic_proba, fetch_real_ohlcv
 import pandas as pd
+import os
 
 app = FastAPI(title="ML Service")
 
@@ -57,4 +58,5 @@ def predict_stock(inp: PredictIn):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8001)
+    port = int(os.getenv("PORT", "8001"))
+    uvicorn.run(app, host="0.0.0.0", port=port)
